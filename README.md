@@ -1,4 +1,4 @@
-# Kenyatta National Hospital Digital Infrastructure🤗
+# Kenyatta National Hospital Digital Infrastructure
 
 > Group 6 - Coding Lab
 
@@ -37,14 +37,14 @@ python3 hospital_system.py stop
 ```
 
 ## Team Responsibilities
-| Member   | Responsibility             |
-|----------|----------------------------|
-| Member 1 | Directory Initialization   |
-| Member 2 | Security permissions       |
-| Member 3 | Script Orchestration       |
-| Member 4 | Log archiving              |
-| Member 5 | Critical vitals analysis   |
-| Member 6 | Water usage audit          |
+| Member               | Responsibility             |
+|----------------------|----------------------------|
+| @eruhigira-tech      | Directory Initialization   |
+| @jngoh-maker         | Security permissions       |
+| @pmadit-blip         | Script Orchestration       |
+| @ndizeyedavid        | Log archiving              |
+| @Tharcisse-Irasubiza | Critical vitals analysis   |
+| @ntakirutimanakelvin | Water usage audit          |
 
 ## Technologies Used
 
