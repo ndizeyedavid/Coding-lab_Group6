@@ -27,8 +27,18 @@ initialize_system() {
 }
 
 secure_data() {
-# Member 2's function
-}
 
+echo "securing medical log data"
+
+if [-d "active_logs"]; then
+	chmod 700 active_logs
+
+	echo "permissions have been updated successfully"
+	echo "Updated Permission: "
+	is -ld active_logs
+else
+	echo "ERROR: active_logs directory is not found here"
+fi
+}
 
 # Member 3's space to orchestrate Member 1 and 2 functions
