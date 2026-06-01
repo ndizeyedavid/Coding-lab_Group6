@@ -7,11 +7,11 @@ process_vitals() {
 
     > reports/critical_alerts.txt
 
-    grep "CRITICAL" active_logs/heart_rate.log \
+    grep "CRITICAL" active_logs/heart_rate_log.log \
     | awk -F',' '{print $1","$2","$3}' \
     >> reports/critical_alerts.txt
 
-    grep "CRITICAL" active_logs/temperature.log \
+    grep "CRITICAL" active_logs/temperature_log.log \
     | awk -F',' '{print $1","$2","$3}' \
     >> reports/critical_alerts.txt
 
