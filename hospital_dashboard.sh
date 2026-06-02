@@ -1,9 +1,5 @@
 #!/bin/bash
-# Member 3 - Orchestrator: Calls Member 1 and Member 2 functions in order
-
-# Source Member 1 and Member 2 scripts
-source ./initialize_system.sh
-source ./secure_data.sh
+# KNH Hospital Admin Dashboard
 
 initialize_system() {
     echo "Initializing system..."
@@ -37,7 +33,7 @@ do
         3)
             initialize_system
             secure_data
-            echo "System Environment Secured - $(date)"
+            echo "System Environment secured."
             ;;
         4)
             echo "Exiting dashboard..."
