@@ -1,50 +1,79 @@
 #!/bin/bash
-# Member 3 - Orchestrator: Calls Member 1 and Member 2 functions in order
-
-# Source Member 1 and Member 2 scripts
-source ./initialize_system.sh
-source ./secure_data.sh
 
 initialize_system() {
-    echo "Initializing system..."
+    if [ -d "active_logs" ]; then
+        echo "active_logs directory already exists."
+    else
+        echo "Creating active_logs directory..."
+        mkdir active_logs
+
+    fi
+
+    if [ -d "archived_logs" ]; then
+        echo "archived_logs directory already exists."
+    else
+        echo "Creating archived_logs directory..."
+        mkdir archived_logs
+    fi
+
+    if [ -d "reports" ]; then
+        echo "reports directory already exists."
+    else
+        echo "Creating reports directory..."
+        mkdir reports
+    fi
+
+    echo "System directories initialized."
 }
 
 secure_data() {
-    echo "Securing data..."
+
+echo "securing medical log data"
+
+if [-d "active_logs"]; then
+	chmod 700 active_logs
+
+	echo "permissions have been updated successfully"
+	echo "Updated Permission: "
+	is -ld active_logs
+else
+	echo "ERROR: active_logs directory is not found here"
+fi
 }
 
 while true
 do
-    echo ""
-    echo "==============================="
-    echo "KNH Hospital Admin Dashboard"
-    echo "==============================="
-    echo "1. Initialize system"
-    echo "2. Secure Data"
-    echo "3. Run all"
-    echo "4. Exit"
+	echo ""
+	echo "==============================="
+	echo "KNH Hospital Admin Dashboard"
+	echo "==============================="
+	echo "1. Initialize system"
+	echo "2. Secure Data"
+	echo "3. Run all"
+	echo "4. Exit"
+	
+	read -p "choose an option: " choice
+	case $choice in
+		1)
+			initialize_system
+			echo "System initialization completed."
+			;;
+		2)
+			secure_data
+			echo "Security update completed."
+			;;
+		3)
+			initialize_system
+			secure_data
+			echo "System Environmentsecured."
+			;;
+		4)
+			echo "Exiting dashboard..."
+			break
+			;;
 
-    read -p "choose an option: " choice
-    case $choice in
-        1)
-            initialize_system
-            echo "System initialization completed."
-            ;;
-        2)
-            secure_data
-            echo "Security update completed."
-            ;;
-        3)
-            initialize_system
-            secure_data
-            echo "System Environment Secured - $(date)"
-            ;;
-        4)
-            echo "Exiting dashboard..."
-            break
-            ;;
-        *)
-            echo "Invalid option. Please choose 1-4."
-            ;;
-    esac
+		*)
+			echo "Invalid option. Please choose 1-4."
+			;;
+	esac
 done
