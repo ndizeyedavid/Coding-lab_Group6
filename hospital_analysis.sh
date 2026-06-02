@@ -19,29 +19,42 @@ process_vitals() {
 
 }
 water_audit(){
- log_file="active_logs/water_usage_log.log"
+	log_file="active_logs/water_usage_log.log"
 
     if [ ! -f "$log_file" ]; then
         echo "No water usage log found."
         return
     fi
 
-    awk -F' \\| ' '
-    $2 == "ICU_WATER_RESERVE" {
-        sum += $3
-        count++
-    }
-    END {
-        if (count > 0) {
-            avg = sum / count
-            printf "\n===== ICU WATER AUDIT =====\n"
-            printf "Total Records: %d\n", count
-            printf "Total Usage : %.0f Litres\n", sum
-            printf "Average Usage: %.2f Litres\n", avg
-            printf "===========================\n"
-        } else {
-            print "No ICU_WATER_RESERVE records found."
+    average=$(awk -F' \\| ' '
+        $2 == "ICU_WATER_RESERVE" {
+            sum += $3
+            count++
         }
-    }' "$log_file"
-}
+        END {
+            if (count > 0)
+                print sum / count
+            else
+                print 0
+        }
+    ' "$log_file")
 
+    total_records=$(awk -F' \\| ' '
+        $2 == "ICU_WATER_RESERVE" {
+            count++
+        }
+        END {
+            print count
+        }
+    ' "$log_file")
+
+    printf "\n"
+    printf "===============================================\n"
+    printf "           KNH FACILITY AUDIT REPORT\n"
+    printf "===============================================\n"
+    printf "%-20s : %s\n" "Resource" "ICU_WATER_RESERVE"
+    printf "%-20s : %d\n" "Records Analysed" "$total_records"
+    printf "%-20s : %.2f Litres\n" "Average Usage" "$average"
+    printf "%-20s : %s\n" "Generated" "$(date)"
+    printf "===============================================\n"
+}
