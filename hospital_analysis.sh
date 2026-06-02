@@ -18,44 +18,45 @@ process_vitals() {
     echo "Critical alerts saved to reports/critical_alerts.txt"
 
 }
-
-
-water_audit() {
+water_audit(){
 	log_file="active_logs/water_usage_log.log"
-	report_file="reports/water_audit_report.txt"
 
-	if [ ! -f "$log_file" ]; then
-		echo "No water usage log found."
-		return
-	fi
+    if [ ! -f "$log_file" ]; then
+        echo "No water usage log found."
+        return
+    fi
 
-	total_usage=0
-	entry_count=0
+    average=$(awk -F' \\| ' '
+        $2 == "ICU_WATER_RESERVE" {
+            sum += $3
+            count++
+        }
+        END {
+            if (count > 0)
+                print sum / count
+            else
+                print 0
+        }
+    ' "$log_file")
 
-	while read line
-	do
-	usage=$(echo "$line" | awk '{print $NF}')
+    total_records=$(awk -F' \\| ' '
+        $2 == "ICU_WATER_RESERVE" {
+            count++
+        }
+        END {
+            print count
+        }
+    ' "$log_file")
 
-	if [[ "$usage" =~ ^[0-9]+$ ]]; then
-		total_usage=$((total_usage + usage))
-		entry_count=$((entry_count + 1))
-	fi
-
-	done < "$log_file"
-
-	echo "=====================================" > "$report_file"
-	echo " KNH WATER AUDIT REPORT" >> "$report_file"
-	echo " Generated: $(date)" >> "$report_file"
-	echo "=====================================" >> "$report_file"
-	echo "Total Entries: $entry_count" >> "$report_file"
-	echo "Total Water Usage: $total_usage Litres" >> "$report_file"
-
-	if [ "$entry_count" -gt 0 ]; then
-		average=$((total_usage / entry_count))
-		echo "Average Usage: $average Litres" >> "$report_file"
-	fi
-
-	echo "Report saved to $report_file"
+    printf "\n"
+    printf "===============================================\n"
+    printf "           KNH FACILITY AUDIT REPORT\n"
+    printf "===============================================\n"
+    printf "%-20s : %s\n" "Resource" "ICU_WATER_RESERVE"
+    printf "%-20s : %d\n" "Records Analysed" "$total_records"
+    printf "%-20s : %.2f Litres\n" "Average Usage" "$average"
+    printf "%-20s : %s\n" "Generated" "$(date)"
+    printf "===============================================\n"
 }
 
 # =====================================
