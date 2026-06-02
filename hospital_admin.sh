@@ -56,16 +56,17 @@ do
 	case $choice in
 		1)
 			initialize_system
-			echo "System initialization completed."
+			echo ""
 			;;
 		2)
 			secure_data
-			echo "Security update completed."
+			echo ""
 			;;
 		3)
 			initialize_system
+			echo ""
 			secure_data
-			echo "System Environmentsecured."
+			echo ""
 			;;
 		4)
 			echo "Exiting dashboard..."
@@ -75,5 +76,5 @@ do
 		*)
 			echo "Invalid option. Please choose 1-4."
 			;;
-	esac
+  	esac 
 done
