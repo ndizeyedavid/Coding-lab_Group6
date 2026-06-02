@@ -13,6 +13,7 @@ secure_data() {
     echo "Securing data..."
 }
 
+<<<<<<< HEAD
 while true
 do
     echo ""
@@ -48,3 +49,6 @@ do
             ;;
     esac
 done
+=======
+# Member 3's space to orchestrate Member 1 and 2 functions
+>>>>>>> parent of 4d4db73... Created the loop that calls functions
