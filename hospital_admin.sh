@@ -31,7 +31,14 @@ secure_data() {
 echo "securing medical log data"
 
 if [ -d "active_logs" ]; then
-	chmod 700 active_logs
+	currentPermission = stat -c "%a" active_logs
+	if (( currentPermission == 600 )); then
+		echo "active_logs is already protected" 
+		return 
+		
+	fi
+
+	chmod 600 active_logs
 
 	echo "permissions have been updated successfully"
 	echo "Updated Permission: "
