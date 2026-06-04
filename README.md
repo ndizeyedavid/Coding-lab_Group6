@@ -2,6 +2,8 @@
 
 > Group 6 - Coding Lab
 
+Team Task Sheet: https://docs.google.com/spreadsheets/d/1zHC1osQrHDZIWsG7x2WrVsYVgrW_TbkVsKB6texp4EA/edit
+
 This repository contains 3 scripts which are helping in analyzing and processing the hospital sensor simulation using a python data engine. The scripts are here to manage directory setup, file permissions, data analysis and log archiving.
 
 ## Project Objective
