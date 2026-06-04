@@ -15,8 +15,15 @@ archive_logs() {
 	if [ -f "$file" ]; then
 	    newFileName=$(basename "$file")
 	    newFileName="${newFileName%_log.log}"
+	    
 
-	    mv "$file" "archived_logs/${newFileName}_${timestamp}.log"
+	    if [ -f "archived_logs/${newFileName}_${timestamp}.log" ]; then
+		echo "Archive logs for this timestamp ($timestamp) already exists"
+		return 1
+	    fi
+	    
+
+	    mv "$file" "archived_logs/${newFileName}_${timestamp}.log"	    
 	    echo "Archived: ${newFileName}_${timestamp}.log"
 
 	    touch "active_logs/${newFileName}_log.log"
@@ -24,6 +31,7 @@ archive_logs() {
 	fi
     done
 
+    echo ""
     echo "Hospital log archiving completed successfully."
 }
 
